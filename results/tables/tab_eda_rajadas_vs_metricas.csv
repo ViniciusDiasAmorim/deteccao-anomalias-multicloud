@@ -1,0 +1,9 @@
+,janelas com métricas,cpu_util_percent,mem_util_percent,disk_io_percent
+506–523,0,,,
+783–842,60,0.0,0.067,0.017
+1108–1108,1,0.0,0.0,0.0
+1110–1127,18,0.0,0.0,0.0
+1927–1945,19,0.053,0.211,0.0
+1954–1988,35,0.029,0.143,0.0
+todas as rajadas,133,0.015,0.098,0.008
+fora das rajadas (referência),1636,0.1,0.1,0.1

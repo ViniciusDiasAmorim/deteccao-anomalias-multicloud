@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel de anomalias</title>
+<style>
+  :root {
+    color-scheme: light;
+    --fundo: #f6f5f2; --cartao: #fcfcfb; --borda: #e4e3df; --grade: #ecebe7;
+    --texto: #0b0b0b; --texto-2: #52514e; --texto-3: #8a8984;
+    --serie: #2a78d6; --anomalia: #c62f2f; --treino: #e4e3df; --foco: #2a78d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --fundo: #121211; --cartao: #1a1a19; --borda: #2e2e2c; --grade: #262624;
+      --texto: #f0efec; --texto-2: #c3c2b7; --texto-3: #8f8e86;
+      --serie: #3987e5; --anomalia: #f06a6a; --treino: #2a2a28; --foco: #3987e5;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --fundo: #121211; --cartao: #1a1a19; --borda: #2e2e2c; --grade: #262624;
+    --texto: #f0efec; --texto-2: #c3c2b7; --texto-3: #8f8e86;
+    --serie: #3987e5; --anomalia: #f06a6a; --treino: #2a2a28; --foco: #3987e5;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto);
+         font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1120px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  h1 { font-size: 20px; margin: 0; }
+  h2 { font-size: 15px; margin: 0 0 12px; }
+  a { color: var(--foco); }
+  .sub { color: var(--texto-2); margin: 4px 0 20px; }
+  .cartao { background: var(--cartao); border: 1px solid var(--borda); border-radius: 10px; padding: 16px;
+            margin-bottom: 16px; }
+  .controles { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+  label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--texto-2); }
+  select, button { font: inherit; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--borda);
+                   background: var(--cartao); color: var(--texto); }
+  select { min-width: 220px; max-width: 100%; }
+  button { background: var(--foco); color: #fff; border-color: var(--foco); cursor: pointer; }
+  button:disabled { opacity: .6; cursor: progress; }
+  :focus-visible { outline: 2px solid var(--foco); outline-offset: 2px; }
+  .resumo { display: flex; gap: 24px; flex-wrap: wrap; margin: 14px 0 6px; }
+  .resumo div { font-size: 12px; color: var(--texto-2); }
+  .resumo strong { display: block; font-size: 18px; color: var(--texto); font-variant-numeric: tabular-nums; }
+  .legenda { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--texto-2); margin-top: 6px; }
+  .legenda span { display: inline-flex; align-items: center; gap: 6px; }
+  .marca { width: 14px; height: 2px; background: var(--serie); display: inline-block; }
+  .marca.ponto { width: 9px; height: 9px; border-radius: 50%; background: var(--anomalia);
+                 box-shadow: 0 0 0 2px var(--cartao); }
+  .marca.area { width: 14px; height: 10px; background: var(--treino); }
+  #grafico { position: relative; }
+  svg { width: 100%; height: 320px; display: block; }
+  .eixo text { fill: var(--texto-3); font-size: 11px; }
+  .eixo line, .grade line { stroke: var(--grade); }
+  #dica { position: absolute; pointer-events: none; background: var(--cartao); border: 1px solid var(--borda);
+          border-radius: 8px; padding: 6px 8px; font-size: 12px; display: none; white-space: nowrap;
+          box-shadow: 0 2px 8px rgb(0 0 0 / .12); }
+  .tabela { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--borda); white-space: nowrap; }
+  th { color: var(--texto-2); font-weight: 600; font-size: 12px; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .vazio { color: var(--texto-3); padding: 12px 0; }
+  .erro { color: var(--anomalia); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Detecção de anomalias em métricas de infraestrutura</h1>
+    <a href="/docs">Documentação da API</a>
+  </header>
+  <p class="sub">Isolation Forest, LOF e Random Forest com os hiperparâmetros escolhidos no NAB. O modelo aprende com
+    o trecho inicial da série e marca anomalias no restante.</p>
+
+  <section class="cartao" aria-labelledby="t-serie">
+    <h2 id="t-serie">Série monitorada</h2>
+    <div class="controles">
+      <label>Recurso e métrica<select id="recurso"></select></label>
+      <label>Modelo
+        <select id="modelo">
+          <option value="isolation_forest">Isolation Forest</option>
+          <option value="lof">LOF</option>
+          <option value="random_forest">Random Forest</option>
+        </select>
+      </label>
+      <button id="detectar">Detectar anomalias</button>
+    </div>
+    <div class="resumo" id="resumo"></div>
+    <div id="grafico" role="img" aria-label="Série temporal com anomalias detectadas">
+      <svg id="svg" preserveAspectRatio="none"></svg>
+      <div id="dica"></div>
+    </div>
+    <div class="legenda">
+      <span><i class="marca"></i>valor</span>
+      <span><i class="marca ponto"></i>anomalia detectada</span>
+      <span><i class="marca area"></i>trecho de treino</span>
+    </div>
+  </section>
+
+  <section class="cartao" aria-labelledby="t-alertas">
+    <h2 id="t-alertas">Alertas recentes</h2>
+    <div class="tabela" id="alertas"></div>
+  </section>
+
+  <section class="cartao" aria-labelledby="t-comp">
+    <h2 id="t-comp">Comparativo dos modelos — média entre repetições (fase 4)</h2>
+    <div class="tabela" id="comparativo"></div>
+  </section>
+</main>
+<script>
+const fmt = (v, casas = 3) => v == null ? "—" : Number(v).toLocaleString("pt-BR", { maximumFractionDigits: casas,
+  minimumFractionDigits: Math.min(casas, 2) });
+const dataHora = s => new Date(s).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
+const NOMES = { isolation_forest: "Isolation Forest", lof: "LOF", random_forest: "Random Forest" };
+let ultimo = null, RECURSOS = [];
+
+async function json(url, opcoes) {
+  const r = await fetch(url, opcoes);
+  if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.statusText);
+  return r.json();
+}
+
+function tabela(el, colunas, linhas, vazio) {
+  if (!linhas.length) { el.innerHTML = `<p class="vazio">${vazio}</p>`; return; }
+  const th = colunas.map(c => `<th scope="col"${c.num ? ' style="text-align:right"' : ""}>${c.t}</th>`).join("");
+  const tr = linhas.map(l => "<tr>" + colunas.map(c =>
+    `<td${c.num ? ' class="num"' : ""}>${c.f(l)}</td>`).join("") + "</tr>").join("");
+  el.innerHTML = `<table><thead><tr>${th}</tr></thead><tbody>${tr}</tbody></table>`;
+}
+
+async function carregarRecursos() {
+  const sel = document.getElementById("recurso");
+  RECURSOS = await json("/api/recursos");
+  sel.innerHTML = RECURSOS.map((r, i) => `<option value="${i}">${r.fonte} · ${r.recurso} · ${r.metrica}` +
+    ` (${r.pontos.toLocaleString("pt-BR")} pontos)</option>`).join("");
+  if (!RECURSOS.length) sel.innerHTML = "<option>nenhuma série no banco</option>";
+}
+
+async function detectar() {
+  const botao = document.getElementById("detectar");
+  const r = RECURSOS[+document.getElementById("recurso").value];
+  if (!r) return;
+  const modelo = document.getElementById("modelo").value;
+  botao.disabled = true;
+  try {
+    ultimo = await json("/api/recursos/detectar", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fonte: r.fonte, recurso: r.recurso, metrica: r.metrica, modelo }) });
+    const p = ultimo.pontos;
+    document.getElementById("resumo").innerHTML =
+      `<div>Pontos<strong>${p.length.toLocaleString("pt-BR")}</strong></div>` +
+      `<div>Treino<strong>${ultimo.n_treino.toLocaleString("pt-BR")}</strong></div>` +
+      `<div>Anomalias<strong>${ultimo.n_anomalias.toLocaleString("pt-BR")}</strong></div>` +
+      `<div>Período<strong style="font-size:14px">${dataHora(p[0].instante)} – ${dataHora(p[p.length - 1].instante)}</strong></div>`;
+    desenhar();
+    carregarAlertas();
+  } catch (e) {
+    document.getElementById("resumo").innerHTML = `<p class="erro">Falha na detecção: ${e.message}</p>`;
+  } finally { botao.disabled = false; }
+}
+
+function desenhar() {
+  if (!ultimo) return;
+  const svg = document.getElementById("svg");
+  const W = svg.clientWidth, H = svg.clientHeight, m = { e: 56, d: 12, t: 10, b: 26 };
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const p = ultimo.pontos, t = p.map(x => +new Date(x.instante)), v = p.map(x => x.valor);
+  const t0 = t[0], t1 = t[t.length - 1], vmin = Math.min(...v), vmax = Math.max(...v) || 1;
+  const x = s => m.e + (s - t0) / (t1 - t0 || 1) * (W - m.e - m.d);
+  const y = s => H - m.b - (s - vmin) / (vmax - vmin || 1) * (H - m.t - m.b);
+  const nTreino = ultimo.n_treino;
+  let html = `<rect x="${x(t[0])}" y="${m.t}" width="${x(t[nTreino - 1]) - x(t[0])}" height="${H - m.t - m.b}"` +
+    ` fill="var(--treino)"/>`;
+  for (let i = 0; i <= 4; i++) {
+    const val = vmin + (vmax - vmin) * i / 4, yy = y(val);
+    html += `<g class="grade"><line x1="${m.e}" x2="${W - m.d}" y1="${yy}" y2="${yy}"/></g>` +
+      `<g class="eixo"><text x="${m.e - 6}" y="${yy + 4}" text-anchor="end">${fmt(val, val >= 100 ? 0 : 2)}</text></g>`;
+  }
+  for (let i = 0; i <= 5; i++) {
+    const s = t0 + (t1 - t0) * i / 5;
+    html += `<g class="eixo"><text x="${x(s)}" y="${H - 8}" text-anchor="${i === 0 ? "start" : i === 5 ? "end" : "middle"}">` +
+      `${new Date(s).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" })}</text></g>`;
+  }
+  const passo = Math.max(1, Math.floor(p.length / (W * 2)));
+  let d = "";
+  for (let i = 0; i < p.length; i += passo) d += (d ? "L" : "M") + x(t[i]).toFixed(1) + "," + y(v[i]).toFixed(1);
+  html += `<path d="${d}" fill="none" stroke="var(--serie)" stroke-width="1.5" stroke-linejoin="round"/>`;
+  p.forEach((q, i) => { if (q.anomalia) html += `<circle cx="${x(t[i])}" cy="${y(v[i])}" r="4" fill="var(--anomalia)"` +
+    ` stroke="var(--cartao)" stroke-width="2"/>`; });
+  html += `<line id="mira" y1="${m.t}" y2="${H - m.b}" stroke="var(--texto-3)" stroke-dasharray="3 3" visibility="hidden"/>`;
+  svg.innerHTML = html;
+
+  const dica = document.getElementById("dica"), mira = document.getElementById("mira");
+  svg.onmousemove = ev => {
+    const caixa = svg.getBoundingClientRect(), px = ev.clientX - caixa.left;
+    const alvo = t0 + (px - m.e) / (W - m.e - m.d) * (t1 - t0);
+    let lo = 0, hi = t.length - 1;
+    while (lo < hi) { const meio = (lo + hi) >> 1; if (t[meio] < alvo) lo = meio + 1; else hi = meio; }
+    const q = p[lo];
+    mira.setAttribute("x1", x(t[lo])); mira.setAttribute("x2", x(t[lo])); mira.setAttribute("visibility", "visible");
+    dica.style.display = "block";
+    dica.innerHTML = `${dataHora(q.instante)}<br>valor <b>${fmt(q.valor)}</b> · escore ${fmt(q.escore)}` +
+      (q.anomalia ? '<br><b style="color:var(--anomalia)">● anomalia</b>' : q.treino ? "<br>trecho de treino" : "");
+    const left = Math.min(x(t[lo]) + 12, W - dica.offsetWidth - 4);
+    dica.style.left = left + "px"; dica.style.top = "8px";
+  };
+  svg.onmouseleave = () => { dica.style.display = "none"; mira.setAttribute("visibility", "hidden"); };
+}
+
+async function carregarAlertas() {
+  const alertas = await json("/api/alertas?limite=50");
+  tabela(document.getElementById("alertas"), [
+    { t: "Instante", f: a => dataHora(a.instante) }, { t: "Fonte", f: a => a.fonte },
+    { t: "Recurso", f: a => a.recurso }, { t: "Métrica", f: a => a.metrica },
+    { t: "Valor", f: a => fmt(a.valor), num: true }, { t: "Escore", f: a => fmt(a.escore), num: true },
+    { t: "Modelo", f: a => NOMES[a.modelo] || a.modelo },
+  ], alertas, "Nenhum alerta gravado. Rode uma detecção acima.");
+}
+
+async function carregarComparativo() {
+  const linhas = await json("/api/resultados");
+  tabela(document.getElementById("comparativo"), [
+    { t: "Dataset", f: l => l.dataset }, { t: "Features", f: l => l.variante === "completo" ? "com hora" : "sem hora" },
+    { t: "Modelo", f: l => NOMES[l.modelo] || l.modelo },
+    { t: "F1", f: l => `${fmt(l.f1)} ± ${fmt(l.f1_desvio)}`, num: true },
+    { t: "Precision", f: l => fmt(l.precision), num: true }, { t: "Recall", f: l => fmt(l.recall), num: true },
+    { t: "FPR", f: l => fmt(l.fpr, 4), num: true }, { t: "Treino (s)", f: l => fmt(l.tempo_treino_s), num: true },
+    { t: "Inferência (ms/amostra)", f: l => fmt(l.tempo_inferencia_ms, 4), num: true },
+  ], linhas, "Resultados da fase 4 ainda não carregados no banco.");
+}
+
+document.getElementById("detectar").addEventListener("click", detectar);
+window.addEventListener("resize", desenhar);
+// ?recurso=<nome>&modelo=<modelo> pré-seleciona a série e o modelo (útil para demonstrações).
+const params = new URLSearchParams(location.search);
+carregarRecursos().then(() => {
+  const i = RECURSOS.findIndex(r => r.recurso === params.get("recurso"));
+  if (i >= 0) document.getElementById("recurso").value = i;
+  if (params.get("modelo")) document.getElementById("modelo").value = params.get("modelo");
+  if (RECURSOS.length) detectar();
+});
+carregarAlertas();
+carregarComparativo();
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+# Python 3.14.7 (venv em .venv). Versões fixadas para reprodutibilidade.
+
+# Núcleo de dados e ML (fases 2-4)
+numpy==2.5.3
+pandas==3.0.6
+scikit-learn==1.9.1
+scipy==1.18.1
+matplotlib==3.11.2
+seaborn==0.13.2
+
+# Notebooks
+jupyterlab==4.6.4
+ipykernel==7.4.0
+nbconvert==7.17.1
+
+# Persistência (fase 5) — PostgreSQL local (scripts/db.sh)
+SQLAlchemy==2.1.4
+psycopg[binary]==3.3.6
+
+# Coleta multi-cloud (fase 6)
+boto3==1.43.111
+oci==2.187.2
+python-dotenv==1.2.4
+
+# API (fase 7)
+fastapi==0.143.0
+uvicorn==0.54.0
+
+# Testes
+pytest==9.1.1
+httpx==0.28.1

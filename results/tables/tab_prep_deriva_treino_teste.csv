@@ -1,0 +1,13 @@
+,dataset,média no teste,desvio no teste
+cpu_util_percent,alibaba,0.22,0.9
+mem_util_percent,alibaba,0.58,0.85
+disk_io_percent,alibaba,-0.03,0.87
+net_in_diff,alibaba,-0.01,0.42
+net_out_diff,alibaba,-0.01,0.41
+hora_sin,alibaba,-0.26,1.04
+hora_cos,alibaba,0.09,0.96
+avg_cpu,google,0.08,1.02
+avg_mem,google,-0.09,1.13
+avg_assigned_mem,google,0.3,1.11
+hora_sin,google,-0.1,1.01
+hora_cos,google,0.03,0.99

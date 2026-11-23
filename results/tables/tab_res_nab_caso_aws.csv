@@ -1,0 +1,4 @@
+modelo,janelas,janelas_detectadas,alarmes,alarmes_em_janela,pontos_fora,alarmes_fora
+Isolation Forest,3,3,57,22,3072,35
+LOF,3,3,43,21,3072,22
+Random Forest,3,2,88,5,3072,83

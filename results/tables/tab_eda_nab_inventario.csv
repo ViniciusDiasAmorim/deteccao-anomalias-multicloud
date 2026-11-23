@@ -1,0 +1,20 @@
+série,grupo,pontos,início,dias,passo mediano (min),passos irregulares,timestamps duplicados,nulos,anomalias,% pontos em janela,janela no período probatório,rótulo fora da janela
+ec2_cpu_utilization_24ae8d,realAWSCloudwatch,4032,2014-02-14,14.0,5.0,0,0,0,2,9.970238095238097,False,0
+ec2_cpu_utilization_53ea38,realAWSCloudwatch,4032,2014-02-14,14.0,5.0,0,0,0,2,9.970238095238097,False,0
+ec2_cpu_utilization_5f5533,realAWSCloudwatch,4032,2014-02-14,14.0,5.0,0,0,0,2,9.970238095238097,False,0
+ec2_cpu_utilization_77c1ca,realAWSCloudwatch,4032,2014-04-02,14.0,5.0,0,0,0,1,9.995039682539684,False,0
+ec2_cpu_utilization_825cc2,realAWSCloudwatch,4032,2014-04-10,14.0,5.0,2,0,0,1,8.506944444444445,False,0
+ec2_cpu_utilization_ac20cd,realAWSCloudwatch,4032,2014-04-02,14.0,5.0,2,0,0,1,9.995039682539684,False,0
+ec2_cpu_utilization_c6585a,realAWSCloudwatch,4032,2014-04-02,14.0,5.0,0,0,0,0,0.0,False,0
+ec2_cpu_utilization_fe7f93,realAWSCloudwatch,4032,2014-02-14,14.0,5.0,0,0,0,3,10.044642857142858,False,0
+ec2_disk_write_bytes_1ef3de,realAWSCloudwatch,4719,2014-03-01,16.4,5.0,2,11,0,1,10.023310023310025,False,0
+ec2_disk_write_bytes_c0d644,realAWSCloudwatch,4032,2014-04-02,14.0,5.0,0,0,0,3,10.044642857142858,False,0
+ec2_network_in_257a54,realAWSCloudwatch,4032,2014-04-10,14.0,5.0,2,0,0,1,9.995039682539684,False,0
+ec2_network_in_5abac7,realAWSCloudwatch,4719,2014-03-01,16.4,5.0,2,11,0,2,10.044500953591863,False,0
+elb_request_count_8c0756,realAWSCloudwatch,4032,2014-04-10,14.0,5.0,8,0,0,2,9.970238095238097,False,0
+grok_asg_anomaly,realAWSCloudwatch,4621,2014-01-16,16.0,5.0,0,0,0,3,10.062756979008872,False,0
+iio_us-east-1_i-a2eb1cd9_NetworkIn,realAWSCloudwatch,1243,2013-10-09,4.3,5.0,0,0,0,2,10.136765888978278,False,1
+rds_cpu_utilization_cc0c53,realAWSCloudwatch,4032,2014-02-14,14.0,5.0,1,0,0,2,9.970238095238097,False,0
+rds_cpu_utilization_e47b3b,realAWSCloudwatch,4032,2014-04-10,14.0,5.0,0,0,0,2,9.970238095238097,False,0
+cpu_utilization_asg_misconfiguration,realKnownCause,18050,2014-05-14,62.7,5.0,0,0,0,1,8.30470914127424,False,0
+ec2_request_latency_system_failure,realKnownCause,4021,2014-03-07,14.0,5.0,3,11,0,3,8.60482467047998,False,0

@@ -1,0 +1,18 @@
+dataset,trecho,tipo,colunas,forma,sinal,duração (janelas de 5 min),magnitude
+alibaba,treino,pico_cpu,cpu_util_percent,pico,+,1–3,3–5 σ robusto
+alibaba,treino,memoria_sustentada,mem_util_percent,patamar,+,6–24,2–4 σ robusto
+alibaba,treino,rajada_rede,"net_in, net_out",pico,+,2–6,3–5 σ robusto
+alibaba,teste,pico_cpu,cpu_util_percent,pico,+,1–3,2–6 σ robusto
+alibaba,teste,memoria_sustentada,mem_util_percent,patamar,+,4–36,"1,5–5 σ robusto"
+alibaba,teste,rajada_rede,"net_in, net_out",pico,+,1–8,2–6 σ robusto
+alibaba,teste,vazamento_memoria,mem_util_percent,rampa,+,12–48,2–5 σ robusto
+alibaba,teste,queda_cpu,cpu_util_percent,patamar,−,6–18,30%–60% do valor
+google,treino,pico_cpu,avg_cpu,pico,+,1–3,3–5 σ robusto
+google,treino,memoria_sustentada,avg_mem,patamar,+,6–24,2–4 σ robusto
+google,teste,pico_cpu,avg_cpu,pico,+,1–3,2–6 σ robusto
+google,teste,memoria_sustentada,avg_mem,patamar,+,4–36,"1,5–5 σ robusto"
+google,teste,vazamento_memoria,avg_mem,rampa,+,12–48,2–5 σ robusto
+google,teste,queda_cpu,avg_cpu,patamar,−,6–18,30%–60% do valor
+nab,treino,pico,value,pico,+,1–3,3–6 σ robusto
+nab,treino,patamar,value,patamar,+,6–24,2–4 σ robusto
+nab,teste,rótulos reais do NAB,,,,,

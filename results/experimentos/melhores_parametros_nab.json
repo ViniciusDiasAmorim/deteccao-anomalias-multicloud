@@ -1,0 +1,19 @@
+{
+  "isolation_forest": {
+    "detector__estimador__contamination": 0.01,
+    "detector__estimador__max_features": 0.5,
+    "detector__estimador__max_samples": "auto",
+    "detector__estimador__n_estimators": 300
+  },
+  "lof": {
+    "detector__estimador__contamination": 0.01,
+    "detector__estimador__metric": "manhattan",
+    "detector__estimador__n_neighbors": 50
+  },
+  "random_forest": {
+    "detector__estimador__class_weight": "balanced",
+    "detector__estimador__max_depth": null,
+    "detector__estimador__min_samples_leaf": 1,
+    "detector__estimador__n_estimators": 300
+  }
+}

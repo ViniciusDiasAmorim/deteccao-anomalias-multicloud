@@ -1,0 +1,19 @@
+{
+  "isolation_forest": {
+    "detector__estimador__contamination": 0.02,
+    "detector__estimador__max_features": 1.0,
+    "detector__estimador__max_samples": "auto",
+    "detector__estimador__n_estimators": 100
+  },
+  "lof": {
+    "detector__estimador__contamination": 0.02,
+    "detector__estimador__metric": "euclidean",
+    "detector__estimador__n_neighbors": 50
+  },
+  "random_forest": {
+    "detector__estimador__class_weight": null,
+    "detector__estimador__max_depth": null,
+    "detector__estimador__min_samples_leaf": 1,
+    "detector__estimador__n_estimators": 100
+  }
+}

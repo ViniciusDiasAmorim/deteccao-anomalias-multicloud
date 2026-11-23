@@ -1,0 +1,140 @@
+{
+  "inicio_utc": "2026-10-10T01:14:52.031832+00:00",
+  "fim_utc": "2026-10-10T01:45:33.674206+00:00",
+  "repeticoes": 30,
+  "datasets": [
+    "alibaba",
+    "google",
+    "nab"
+  ],
+  "seed": 42,
+  "teto_fpr": 0.02,
+  "n_dobras_cv": 5,
+  "grades": {
+    "isolation_forest": {
+      "detector__estimador__n_estimators": [
+        100,
+        300
+      ],
+      "detector__estimador__max_samples": [
+        "auto",
+        0.5
+      ],
+      "detector__estimador__max_features": [
+        0.5,
+        1.0
+      ],
+      "detector__estimador__contamination": [
+        0.01,
+        0.02,
+        0.05,
+        0.1
+      ]
+    },
+    "lof": {
+      "detector__estimador__n_neighbors": [
+        5,
+        10,
+        20,
+        50
+      ],
+      "detector__estimador__metric": [
+        "euclidean",
+        "manhattan"
+      ],
+      "detector__estimador__contamination": [
+        0.01,
+        0.02,
+        0.05,
+        0.1
+      ]
+    },
+    "random_forest": {
+      "detector__estimador__n_estimators": [
+        100,
+        300
+      ],
+      "detector__estimador__max_depth": [
+        null,
+        10
+      ],
+      "detector__estimador__min_samples_leaf": [
+        1,
+        5
+      ],
+      "detector__estimador__class_weight": [
+        null,
+        "balanced"
+      ]
+    }
+  },
+  "melhores_parametros": {
+    "alibaba": {
+      "isolation_forest": {
+        "detector__estimador__contamination": 0.02,
+        "detector__estimador__max_features": 1.0,
+        "detector__estimador__max_samples": "auto",
+        "detector__estimador__n_estimators": 100
+      },
+      "lof": {
+        "detector__estimador__contamination": 0.02,
+        "detector__estimador__metric": "euclidean",
+        "detector__estimador__n_neighbors": 50
+      },
+      "random_forest": {
+        "detector__estimador__class_weight": null,
+        "detector__estimador__max_depth": null,
+        "detector__estimador__min_samples_leaf": 1,
+        "detector__estimador__n_estimators": 100
+      }
+    },
+    "google": {
+      "isolation_forest": {
+        "detector__estimador__contamination": 0.01,
+        "detector__estimador__max_features": 0.5,
+        "detector__estimador__max_samples": 0.5,
+        "detector__estimador__n_estimators": 300
+      },
+      "lof": {
+        "detector__estimador__contamination": 0.01,
+        "detector__estimador__metric": "manhattan",
+        "detector__estimador__n_neighbors": 50
+      },
+      "random_forest": {
+        "detector__estimador__class_weight": null,
+        "detector__estimador__max_depth": 10,
+        "detector__estimador__min_samples_leaf": 1,
+        "detector__estimador__n_estimators": 100
+      }
+    },
+    "nab": {
+      "isolation_forest": {
+        "detector__estimador__contamination": 0.01,
+        "detector__estimador__max_features": 0.5,
+        "detector__estimador__max_samples": "auto",
+        "detector__estimador__n_estimators": 300
+      },
+      "lof": {
+        "detector__estimador__contamination": 0.01,
+        "detector__estimador__metric": "manhattan",
+        "detector__estimador__n_neighbors": 50
+      },
+      "random_forest": {
+        "detector__estimador__class_weight": "balanced",
+        "detector__estimador__max_depth": null,
+        "detector__estimador__min_samples_leaf": 1,
+        "detector__estimador__n_estimators": 300
+      }
+    }
+  },
+  "python": "3.14.7",
+  "bibliotecas": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1"
+  },
+  "maquina": {
+    "processador": "x86_64",
+    "sistema": "Linux-6.18.54-1-lts-x86_64-with-glibc2.44"
+  }
+}

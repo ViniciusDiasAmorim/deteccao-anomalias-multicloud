@@ -1,0 +1,10 @@
+dataset,modelo,contamination,max_features,max_samples,n_estimators,metric,n_neighbors,class_weight,max_depth,min_samples_leaf
+Alibaba 2018,Isolation Forest,0.02,1.0,auto,100.0,,,,,
+Alibaba 2018,LOF,0.02,,,,euclidean,50.0,,,
+Alibaba 2018,Random Forest,,,,100.0,,,,,1.0
+Google 2019,Isolation Forest,0.01,0.5,0.5,300.0,,,,,
+Google 2019,LOF,0.01,,,,manhattan,50.0,,,
+Google 2019,Random Forest,,,,100.0,,,,10.0,1.0
+NAB (AWS),Isolation Forest,0.01,0.5,auto,300.0,,,,,
+NAB (AWS),LOF,0.01,,,,manhattan,50.0,,,
+NAB (AWS),Random Forest,,,,300.0,,,balanced,,1.0

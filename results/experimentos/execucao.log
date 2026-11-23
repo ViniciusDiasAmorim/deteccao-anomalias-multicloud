@@ -1,0 +1,107 @@
+[alibaba] GridSearchCV
+  alibaba/isolation_forest: {'detector__estimador__contamination': 0.02, 'detector__estimador__max_features': 1.0, 'detector__estimador__max_samples': 'auto', 'detector__estimador__n_estimators': 100}
+  alibaba/lof: {'detector__estimador__contamination': 0.02, 'detector__estimador__metric': 'euclidean', 'detector__estimador__n_neighbors': 50}
+  alibaba/random_forest: {'detector__estimador__class_weight': None, 'detector__estimador__max_depth': None, 'detector__estimador__min_samples_leaf': 1, 'detector__estimador__n_estimators': 100}
+[alibaba] avaliação em 30 repetições
+  alibaba: repetição 0 ok
+  alibaba: repetição 1 ok
+  alibaba: repetição 2 ok
+  alibaba: repetição 3 ok
+  alibaba: repetição 4 ok
+  alibaba: repetição 5 ok
+  alibaba: repetição 6 ok
+  alibaba: repetição 7 ok
+  alibaba: repetição 8 ok
+  alibaba: repetição 9 ok
+  alibaba: repetição 10 ok
+  alibaba: repetição 11 ok
+  alibaba: repetição 12 ok
+  alibaba: repetição 13 ok
+  alibaba: repetição 14 ok
+  alibaba: repetição 15 ok
+  alibaba: repetição 16 ok
+  alibaba: repetição 17 ok
+  alibaba: repetição 18 ok
+  alibaba: repetição 19 ok
+  alibaba: repetição 20 ok
+  alibaba: repetição 21 ok
+  alibaba: repetição 22 ok
+  alibaba: repetição 23 ok
+  alibaba: repetição 24 ok
+  alibaba: repetição 25 ok
+  alibaba: repetição 26 ok
+  alibaba: repetição 27 ok
+  alibaba: repetição 28 ok
+  alibaba: repetição 29 ok
+[google] GridSearchCV
+  google/isolation_forest: {'detector__estimador__contamination': 0.01, 'detector__estimador__max_features': 0.5, 'detector__estimador__max_samples': 0.5, 'detector__estimador__n_estimators': 300}
+  google/lof: {'detector__estimador__contamination': 0.01, 'detector__estimador__metric': 'manhattan', 'detector__estimador__n_neighbors': 50}
+  google/random_forest: {'detector__estimador__class_weight': None, 'detector__estimador__max_depth': 10, 'detector__estimador__min_samples_leaf': 1, 'detector__estimador__n_estimators': 100}
+[google] avaliação em 30 repetições
+  google: repetição 0 ok
+  google: repetição 1 ok
+  google: repetição 2 ok
+  google: repetição 3 ok
+  google: repetição 4 ok
+  google: repetição 5 ok
+  google: repetição 6 ok
+  google: repetição 7 ok
+  google: repetição 8 ok
+  google: repetição 9 ok
+  google: repetição 10 ok
+  google: repetição 11 ok
+  google: repetição 12 ok
+  google: repetição 13 ok
+  google: repetição 14 ok
+  google: repetição 15 ok
+  google: repetição 16 ok
+  google: repetição 17 ok
+  google: repetição 18 ok
+  google: repetição 19 ok
+  google: repetição 20 ok
+  google: repetição 21 ok
+  google: repetição 22 ok
+  google: repetição 23 ok
+  google: repetição 24 ok
+  google: repetição 25 ok
+  google: repetição 26 ok
+  google: repetição 27 ok
+  google: repetição 28 ok
+  google: repetição 29 ok
+[nab] GridSearchCV
+  nab/isolation_forest: {'detector__estimador__contamination': 0.01, 'detector__estimador__max_features': 0.5, 'detector__estimador__max_samples': 'auto', 'detector__estimador__n_estimators': 300}
+  nab/lof: {'detector__estimador__contamination': 0.01, 'detector__estimador__metric': 'manhattan', 'detector__estimador__n_neighbors': 50}
+  nab/random_forest: {'detector__estimador__class_weight': 'balanced', 'detector__estimador__max_depth': None, 'detector__estimador__min_samples_leaf': 1, 'detector__estimador__n_estimators': 300}
+[nab] avaliação em 30 repetições
+  nab: repetição 0 ok
+  nab: repetição 1 ok
+  nab: repetição 2 ok
+  nab: repetição 3 ok
+  nab: repetição 4 ok
+  nab: repetição 5 ok
+  nab: repetição 6 ok
+  nab: repetição 7 ok
+  nab: repetição 8 ok
+  nab: repetição 9 ok
+  nab: repetição 10 ok
+  nab: repetição 11 ok
+  nab: repetição 12 ok
+  nab: repetição 13 ok
+  nab: repetição 14 ok
+  nab: repetição 15 ok
+  nab: repetição 16 ok
+  nab: repetição 17 ok
+  nab: repetição 18 ok
+  nab: repetição 19 ok
+  nab: repetição 20 ok
+  nab: repetição 21 ok
+  nab: repetição 22 ok
+  nab: repetição 23 ok
+  nab: repetição 24 ok
+  nab: repetição 25 ok
+  nab: repetição 26 ok
+  nab: repetição 27 ok
+  nab: repetição 28 ok
+  nab: repetição 29 ok
+fim
+exit=0

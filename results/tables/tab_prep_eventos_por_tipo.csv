@@ -1,0 +1,17 @@
+dataset,trecho,tipo,eventos,duracao_media,magnitude_media,unidade
+alibaba,teste,memoria_sustentada,21,19.81,3.3,sigma
+alibaba,teste,pico_cpu,13,1.77,4.26,sigma
+alibaba,teste,queda_cpu,16,14.25,0.46,fracao
+alibaba,teste,rajada_rede,19,4.16,3.73,sigma
+alibaba,teste,vazamento_memoria,22,27.59,3.22,sigma
+alibaba,treino,memoria_sustentada,128,14.82,3.05,sigma
+alibaba,treino,pico_cpu,115,1.96,4.08,sigma
+alibaba,treino,rajada_rede,118,4.0,4.08,sigma
+google,teste,memoria_sustentada,64,17.8,3.37,sigma
+google,teste,pico_cpu,65,1.97,3.99,sigma
+google,teste,queda_cpu,61,11.89,0.44,fracao
+google,teste,vazamento_memoria,68,29.59,3.57,sigma
+google,treino,memoria_sustentada,516,14.73,3.05,sigma
+google,treino,pico_cpu,507,2.04,3.98,sigma
+nab,treino,patamar,1697,11.66,3.05,sigma
+nab,treino,pico,2038,1.94,4.48,sigma
